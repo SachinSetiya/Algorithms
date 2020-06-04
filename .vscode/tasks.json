@@ -3,10 +3,12 @@
         {
             "type": "shell",
             "label": "C/C++: gcc build active file",
-            "command": "/usr/bin/gcc",
+            "command": "/usr/bin/g++",
             "args": [
                 "-g",
-                "${file}",
+                "-Werror",
+                // Change compiled file name here
+                "data_structure/binary_search_tree.cpp",
                 "-o",
                 "a.out"
             ],

@@ -1,2 +1,2 @@
 # Algorithms
-Algorithms Implementations in C++
+Algorithms And Data Structure Implementations in C

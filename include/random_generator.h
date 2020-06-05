@@ -1,16 +1,11 @@
-#ifndef _RANDOM_GENERATOR_H
-#define _RANDOM_GENERATOR_H
-#include <stdio.h>
-#include <stdlib.h>
-
-#define uint unsigned int
-#define ulong unsigned long 
-
+#ifndef __RANDOM_GENERATOR_H__
+#define __RANDOM_GENERATOR_H__
+#include "base.h"
 
 struct random_array
 {
   ulong *array;
-  uint size;
+  size_t count;
   void free_data()
   {
     free(array);
@@ -18,21 +13,30 @@ struct random_array
   }
   void print()
   {
-    for (size_t i = 0; i < size; i++)
+    for (size_t i = 0; i < count; i++)
       printf("%lu \n", array[i]);
+  }
+  random_array(){}
+  random_array (size_t size, ulong upper_bound, long lower_bound, uint seed=0)
+  {
+    ulong *t_array= static_cast<ulong *>(malloc(sizeof(ulong) * size));
+    if (!seed)
+      srand(seed);
+    else
+    {
+      srand(time(nullptr));
+    }
+   
+    this->array= t_array;
+    this->count= size;
+    for (size_t i = 0; i < size; i++)
+      array[i]= lower_bound + ((ulong)rand() * (upper_bound - lower_bound))/RAND_MAX;
+  }
+  ~random_array()
+  {
+    free(array);
   }
 };
 
-random_array *get_random_no_array(size_t size, ulong upper_bound, long lower_bound, uint seed=0)
-{
-  random_array *r_array= (random_array *)malloc(sizeof(random_array));
-  ulong *array= (ulong *) malloc(sizeof(ulong) * size);
-  if (!seed)
-    srand(seed);
-  r_array->array= array;
-  r_array->size= size;
-  for (size_t i = 0; i < size; i++)
-    array[i]= lower_bound + (rand() * (upper_bound - lower_bound))/RAND_MAX;
-  return r_array;
-}
-#endif //_RANDOM_GENERATOR_H
+
+#endif // __RANDOM_GENERATOR_H__

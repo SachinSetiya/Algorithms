@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "../include/random_generator.h"
 #include "../include/measure_time.h"
+#include "../include/stack.h"
 
 
 class binary_tree
@@ -41,12 +42,46 @@ enum operation_type{
     return root;
   }
 
-  void insert(ulong num)
+  void insert(ulong num, operation_type opt_type)
   {
     if (!root)
-      root= insert_internal_recursive(root, num);
-    else
+      root= create(num);
+    if(opt_type == RECURSIVE)
       insert_internal_recursive(root, num);
+    else
+      insert_internal_iterative(num);
+  }
+  void insert_internal_iterative(int value)
+  {
+    node *tmp= root, parent;
+    while (1)
+    {
+      if (tmp->value < value)
+      {
+        if(!tmp->right_child)
+        {
+          tmp->right_child= create(value);
+          break;
+        }
+        else
+        {
+          tmp= tmp->right_child;
+        }
+      }
+      else
+      {
+        if(!tmp->left_child)
+        {
+          tmp->left_child= create(value);
+        }
+        else
+        {
+          tmp= tmp->left_child;
+          break;
+        }
+      }
+    }
+    
   }
 
   void preorder_transversal(node *node)
@@ -75,7 +110,11 @@ enum operation_type{
   }
   void print()
   {
-
+    int height= max_height();
+      
+  }
+  void print_level(int level)
+  {
   }
   int _max_height(node *node)
   {
@@ -100,10 +139,10 @@ enum operation_type{
     printf("Height %d\n", max_height);
     return max_height;
   }
-  void bulk_insert(random_array *arr)
+  void bulk_insert(random_array *arr, operation_type opt_type= RECURSIVE)
   {
     for (size_t i=0; i < arr->count; i++)
-      insert(arr->array[i]);
+      insert(arr->array[i],opt_type);
   }
   void free_tree()
   {
@@ -126,7 +165,8 @@ int main()
   binary_tree btree;
   time_measure clk;
   clk.start();
-  btree.bulk_insert(new random_array(2000000, 109909, 1));
+  //btree.bulk_insert(new random_array(2000000, 109909, 1));
+  btree.bulk_insert(new random_array(2000, 109909, 1), binary_tree::RECURSIVE);
   /*
   printf("PreOrder\n");
   btree.preorder_transversal(btree.root);
@@ -137,6 +177,13 @@ int main()
   btree.max_height();
 //  btree.free_tree();
   btree.max_height();
+  btree.max_height();
   */
+  ll_list list;
+  random_array *arr= new random_array(20, 10, 1);
+  arr->print();
+  printf("Sachin \n");
+  list.bulk_insert(arr);
+  list.print();
   clk.done();
 }

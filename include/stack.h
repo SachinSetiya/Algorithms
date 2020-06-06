@@ -24,10 +24,6 @@ public:
   {
     return list.elements;
   }
-  bool error()
-  {
-    return list.error;
-  }
 };
 
 #endif // __STACK_H__

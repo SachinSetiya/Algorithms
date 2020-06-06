@@ -20,7 +20,7 @@ class ll_list
 public:
   ll_node *head, *tail;
   size_t elements;
-  bool error;
+  const int EMPTY_LIST= 1;
   ll_list()
   {
     head= tail = nullptr;
@@ -56,11 +56,14 @@ public:
     }
     elements++;
   }
-  ulong delete_head()
+  ulong delete_head(int *is_error= nullptr)
   {
     if (!elements)
     {
-      error= 1;
+      if (is_error)
+      {
+        *is_error= EMPTY_LIST;
+      }
       return 0;
     }
     if (head == tail)
@@ -76,7 +79,10 @@ public:
   {
     if (!elements)
     {
-      error= 1;
+      if (is_error)
+      {
+        *is_error= EMPTY_LIST;
+      }
       return 0;
     }
     if (tail == head)

@@ -9,7 +9,7 @@
                 "-Werror",
                 "-std=c++11",
                 // Change compiled file name here
-                "data_structure/binary_search_tree.cpp",
+                "sorting_algorithm/sort.cpp",
                 "-o",
                 "a.out"
             ],

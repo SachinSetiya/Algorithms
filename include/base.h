@@ -7,7 +7,13 @@
 
 #define uint unsigned int
 #define ulong unsigned long 
-
+inline void swap(ulong *a, ulong *b)
+{
+  ulong temp;
+  temp= *a;
+  *a= *b;
+  *b= temp;
+}
 
 
 #endif // __BASE_H__

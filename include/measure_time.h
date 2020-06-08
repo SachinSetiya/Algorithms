@@ -16,8 +16,8 @@ public:
   }
   void done()
   {
-    time_t diff_milisec= (clock() - start_time)/(CLOCKS_PER_SEC/3600);
-    printf("Elasped time(in Mili Seconds) = %lu", diff_milisec);
+    time_t diff_milisec= ((clock() - start_time)*1000)/CLOCKS_PER_SEC;
+    printf("Elasped time(in Mili Seconds) = %lu, in Seconds = %f", diff_milisec, (double)diff_milisec/1000);
   }
 };
 

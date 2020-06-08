@@ -75,7 +75,7 @@ public:
     elements--;
     return value;  
   }
-  ulong delete_tail()
+  ulong delete_tail(int *is_error= nullptr)
   {
     if (!elements)
     {

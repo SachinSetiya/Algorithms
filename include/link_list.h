@@ -8,31 +8,33 @@
   Doubly Link List
 */
 
-struct ll_node
+template <typename T>
+class ll_node
 {
-  ulong value;
+  T *data;
   ll_node *next;
   ll_node *prev;
 };
 
+template <typename T>
 class ll_list
 {
 public:
-  ll_node *head, *tail;
+  ll_node<T> *head, *tail;
   size_t elements;
   const int EMPTY_LIST= 1;
   ll_list()
   {
     head= tail = nullptr;
   }
-  ll_node *create_ll_node(ulong value)
+  ll_node<T> *create_ll_node(T* value)
   {
-    ll_node *tmp= static_cast<ll_node *>(malloc(sizeof(ll_node)));
+    ll_node<T> *tmp= static_cast<ll_node<T> *>(malloc(sizeof(ll_node<T>)));
     tmp->next= tmp->prev= nullptr;
     tmp->value= value;
     return tmp;
   }
-  void insert_tail(ulong value)
+  void insert_tail(T* value)
   {
     if (!head)
       head= tail= create_ll_node(value);
@@ -56,7 +58,7 @@ public:
     }
     elements++;
   }
-  ulong delete_head(int *is_error= nullptr)
+  T delete_head(int *is_error= nullptr)
   {
     if (!elements)
     {
@@ -68,14 +70,14 @@ public:
     }
     if (head == tail)
       tail= nullptr;
-    ll_node *old_head= head;
-    ulong value= old_head->value;
+    ll_node<T> *old_head= head;
+    T value= old_head->value;
     head= head->next;
     free(old_head);
     elements--;
-    return value;  
+    return value;
   }
-  ulong delete_tail(int *is_error= nullptr)
+  T delete_tail(int *is_error= nullptr)
   {
     if (!elements)
     {
@@ -87,16 +89,16 @@ public:
     }
     if (tail == head)
       head= nullptr;
-    ll_node *old_tail= tail;
-    ulong value= old_tail->value;
+    ll_node<T> *old_tail= tail;
+    T value= old_tail->value;
     tail= tail->prev;
     free(old_tail);
     elements--;
-    return value;  
+    return value;
   }
   void print()
   {
-    ll_node *tmp= head;
+    ll_node<T> *tmp= head;
     while(tmp)
     {
       printf("%lu \n", tmp->value);

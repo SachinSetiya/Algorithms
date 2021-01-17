@@ -1,29 +1,25 @@
-#ifndef __STACK_H__
-#define __STACK_H__
+#ifndef __QUEUE_H__
+#define __QUEUE_H__
 
 #include "base.h"
 #include "link_list.h"
 
 template <typename T>
-class stack
+class queue
 {
 public:
-  stack<T>()
-  {
-
-  };
   ll_list<T> list;
-  void push(T* value)
+  void push(T value)
   {
     list.insert_tail(value);
   }
-  T* pop()
+  T pop()
   {
-    return list.delete_tail();
+    return list.delete_head();
   }
-  T* peek()
+  T peek()
   {
-    return list.tail->value;
+    return list.head->value;
   }
   size_t elements()
   {
@@ -31,4 +27,4 @@ public:
   }
 };
 
-#endif // __STACK_H__
+#endif // __QUEUE_H__

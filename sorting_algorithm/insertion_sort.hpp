@@ -5,7 +5,7 @@
 */
 namespace insertion_sort
 {
-  random_array * sort(random_array *arr)
+  void sort(random_array *arr)
   {
     long j, k, temp, element;
     for (size_t i = 1; i < arr->count; i++)

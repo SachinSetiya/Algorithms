@@ -8,10 +8,10 @@ namespace merge_sort
 {
   void merge(ulong *array, ulong *result, ulong start, ulong mid_point, ulong end);
   void partition(ulong *array, ulong *result, ulong start, ulong end);
-  random_array * sort(random_array *arr)
+  void sort(random_array *arr)
   {
     random_array *dup_array= arr->make_empty_copy();
-    partition(arr->array, dup_array->array, 0, arr->count);
+    partition(arr->array, dup_array->array, 0, arr->count-1);
   }
   void partition(ulong *array, ulong *tmp, ulong start, ulong end)
   {
@@ -26,7 +26,7 @@ namespace merge_sort
   void merge(ulong *array, ulong *tmp, ulong start, ulong mid_point, ulong end)
   {
     ulong i= start, j= mid_point + 1, k= start;
-    memcpy(tmp+start, array+start, (end - start)*sizeof(ulong));
+    memcpy(tmp+start, array+start, (end - start + 1)*sizeof(ulong));
     while (i <= mid_point && j <= end)
     {
       if (tmp[i] < tmp[j])

@@ -5,7 +5,7 @@
 
 namespace bubble_sort
 {
-  random_array * sort(random_array *arr)
+  void sort(random_array *arr)
   {
     ulong *array= arr->array;
     ulong length= arr->count;

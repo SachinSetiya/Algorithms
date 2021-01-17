@@ -2,6 +2,7 @@
 #define __RANDOM_GENERATOR_H__
 #include "base.h"
 #include <string.h>
+#include <assert.h>
 
 struct random_array
 {
@@ -20,11 +21,13 @@ struct random_array
       printf("%lu \n", array[i]);
   }
   random_array(){}
-  random_array (size_t size, ulong upper_bound, long lower_bound, uint seed=0)
+  random_array (size_t size, long upper_bound, long lower_bound, uint seed=0)
   {
     this->array= static_cast<ulong *>(malloc(sizeof(ulong) * size));
     this->upper_bound= upper_bound;
     this->lower_bound= lower_bound;
+    if (lower_bound>upper_bound)
+      assert(0);
     if (!seed)
       srand(seed);
     else
@@ -39,7 +42,20 @@ struct random_array
   random_array (size_t size)
   {
     this->array= static_cast<ulong *>(malloc(sizeof(ulong) * size));
+    this->upper_bound= RAND_MAX;
+    this->lower_bound= 0;
     this->count= size;
+    for (size_t i = 0; i < size; i++)
+      array[i]= (ulong)rand();
+  }
+  random_array (size_t size, ulong upper_bound)
+  {
+    this->array= static_cast<ulong *>(malloc(sizeof(ulong) * size));
+    this->upper_bound= upper_bound;
+    this->lower_bound= 0;
+    this->count= size;
+    for (size_t i = 0; i < size; i++)
+      array[i]= (ulong)rand()%upper_bound;
   }
   ~random_array()
   {
@@ -87,8 +103,7 @@ struct random_array
     {
       printf("Array is NOT Sorted");
     }
-    
-    
+    return sorted;
   }
   random_array *make_copy()
   {
